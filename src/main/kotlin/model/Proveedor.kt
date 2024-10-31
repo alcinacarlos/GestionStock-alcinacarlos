@@ -11,7 +11,7 @@ data class Proveedor(
     @Column(nullable = false)
     val direccion:String,
 
-    @OneToMany(mappedBy = "proveedor", cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "proveedor", cascade = [CascadeType.MERGE])
     val productos: MutableList<Producto> = mutableListOf(),
 
     @Id

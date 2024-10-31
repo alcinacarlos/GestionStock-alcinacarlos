@@ -77,7 +77,7 @@ class ProveedorRepository {
             val proveedor = getProveedorById(id)
             if (proveedor != null) {
                 transaction.begin()
-                em.remove(proveedor)
+                em.remove(if (em.contains(proveedor)) proveedor else em.merge(proveedor)) //sacado de https://stackoverflow.com/questions/17027398/java-lang-illegalargumentexception-removing-a-detached-instance-com-test-user5
                 transaction.commit()
             }
         } catch (e: Exception) {

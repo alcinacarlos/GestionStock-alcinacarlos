@@ -17,7 +17,8 @@ fun main() {
     val proveedorManager = ProveedorManager(proveedorRepository)
     val loginManager = LoginManager(usuarioRepository)
 
-    val gestionStock = GestionStock(loginManager, productManager, proveedorManager)
+    val gestionStock = GestionStock(loginManager, productManager, proveedorManager, logged = true)
+    //si no especificas si estás logedo hay un login hecho
 
     gestionStock.menu()
 

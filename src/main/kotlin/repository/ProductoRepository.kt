@@ -1,9 +1,10 @@
 package com.carlosalcina.repository
 
-import com.carlosalcina.utils.HibernateUtils
 import com.carlosalcina.model.Producto
+import com.carlosalcina.utils.HibernateUtils
 import jakarta.persistence.EntityManager
 import jakarta.persistence.EntityTransaction
+
 
 class ProductoRepository {
 
@@ -83,7 +84,7 @@ class ProductoRepository {
             val producto = getProductoById(id)
             if (producto != null) {
                 transaction.begin()
-                em.remove(producto)
+                em.remove(if (em.contains(producto)) producto else em.merge(producto)) //sacado de https://stackoverflow.com/questions/17027398/java-lang-illegalargumentexception-removing-a-detached-instance-com-test-user5
                 transaction.commit()
                 done = true
             }

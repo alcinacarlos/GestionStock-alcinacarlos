@@ -76,7 +76,7 @@ class UsuarioRepository {
             val usuario = getUsuarioById(nombreUsuario)
             if (usuario != null) {
                 transaction.begin()
-                em.remove(usuario)
+                em.remove(if (em.contains(usuario)) usuario else em.merge(usuario)) //sacado de https://stackoverflow.com/questions/17027398/java-lang-illegalargumentexception-removing-a-detached-instance-com-test-user5
                 transaction.commit()
             }
         } catch (e: Exception) {

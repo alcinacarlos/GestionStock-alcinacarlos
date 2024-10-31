@@ -22,7 +22,7 @@ data class Producto(
     @Column
     val stock:Int,
 
-    @ManyToOne(cascade = [CascadeType.ALL])
+    @ManyToOne(cascade = [CascadeType.MERGE])
     @JoinColumn(name = "proveedor_id")
     val proveedor: Proveedor,
 
