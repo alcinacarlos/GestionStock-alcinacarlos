@@ -1,27 +1,25 @@
 package com.carlosalcina.repository
 
-import com.carlosalcina.ejercicioinstitutos.utils.HibernateUtils
+import com.carlosalcina.utils.HibernateUtils
 import com.carlosalcina.model.Producto
 import jakarta.persistence.EntityManager
 import jakarta.persistence.EntityTransaction
 
 class ProductoRepository {
 
-    companion object{
-        const val PERSITENCENAME = "gestionEmpresa"
-    }
-
     private fun getEntityManager(): EntityManager {
-        return HibernateUtils.getEntityManager(PERSITENCENAME)
+        return HibernateUtils.getEntityManager()
     }
 
-    fun insertProducto(producto: Producto) {
+    fun insertProducto(producto: Producto):Boolean {
         val em = getEntityManager()
         val transaction: EntityTransaction = em.transaction
+        var done = false
         try {
             transaction.begin()
             em.persist(producto)
             transaction.commit()
+            done = true
         } catch (e: Exception) {
             if (transaction.isActive) {
                 transaction.rollback()
@@ -30,6 +28,7 @@ class ProductoRepository {
         } finally {
             em.close()
         }
+        return done
     }
 
     fun getAllProductos(): List<Producto> {
@@ -44,13 +43,15 @@ class ProductoRepository {
         }
     }
 
-    fun updateProducto(producto: Producto) {
+    fun updateProducto(producto: Producto):Boolean {
         val em = getEntityManager()
         val transaction: EntityTransaction = em.transaction
+        var done = false
         try {
             transaction.begin()
             em.merge(producto)
             transaction.commit()
+            done = true
         } catch (e: Exception) {
             if (transaction.isActive) {
                 transaction.rollback()
@@ -59,6 +60,7 @@ class ProductoRepository {
         } finally {
             em.close()
         }
+        return done
     }
 
     fun getProductoById(id: String): Producto? {
@@ -73,15 +75,17 @@ class ProductoRepository {
         }
     }
 
-    fun deleteProducto(id: String) {
+    fun deleteProducto(id: String):Boolean {
         val em = getEntityManager()
         val transaction: EntityTransaction = em.transaction
+        var done = false
         try {
             val producto = getProductoById(id)
             if (producto != null) {
                 transaction.begin()
                 em.remove(producto)
                 transaction.commit()
+                done = true
             }
         } catch (e: Exception) {
             if (transaction.isActive) {
@@ -91,5 +95,6 @@ class ProductoRepository {
         } finally {
             em.close()
         }
+        return done
     }
 }

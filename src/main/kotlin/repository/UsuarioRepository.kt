@@ -1,17 +1,14 @@
 package com.carlosalcina.repository
 
-import com.carlosalcina.ejercicioinstitutos.utils.HibernateUtils
+import com.carlosalcina.utils.HibernateUtils
 import com.carlosalcina.model.Usuario
 import jakarta.persistence.EntityManager
 import jakarta.persistence.EntityTransaction
 
 class UsuarioRepository {
-    companion object{
-        const val PERSISTENCENAME = "gestionEmpresa"
-    }
 
     private fun getEntityManager(): EntityManager {
-        return HibernateUtils.getEntityManager(PERSISTENCENAME)
+        return HibernateUtils.getEntityManager()
     }
 
     fun insertUsuario(usuario: Usuario) {

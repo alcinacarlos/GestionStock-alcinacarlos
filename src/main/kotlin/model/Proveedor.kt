@@ -4,11 +4,11 @@ import jakarta.persistence.*
 
 @Entity
 @Table
-class Proveedor(
-    @Column
+data class Proveedor(
+    @Column(unique = true, length = 50, nullable = false)
     val nombre:String,
 
-    @Column
+    @Column(nullable = false)
     val direccion:String,
 
     @OneToMany(mappedBy = "proveedor", cascade = [CascadeType.ALL])
@@ -18,10 +18,7 @@ class Proveedor(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id:Long? = null
 ) {
-    fun addProduct(producto: Producto){
-        productos.add(producto)
-    }
-    fun removeProduct(producto: Producto){
-        productos.remove(producto)
+    override fun toString(): String {
+        return "\nNombre: $nombre\nDirección: $direccion\nID: $id"
     }
 }

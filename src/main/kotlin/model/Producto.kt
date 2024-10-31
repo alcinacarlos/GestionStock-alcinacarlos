@@ -7,16 +7,16 @@ import java.util.Date
 @Table
 data class Producto(
 
-    @Column
+    @Column(nullable = false, length = 10)
     val categoría:String,
 
-    @Column
+    @Column(length = 50, nullable = false)
     val nombre:String,
 
     @Column
     val descripcion:String,
 
-    @Column
+    @Column(nullable = false)
     val precio_sin_iva: Float,
 
     @Column
@@ -26,7 +26,7 @@ data class Producto(
     @JoinColumn(name = "proveedor_id")
     val proveedor: Proveedor,
 
-    @Column
+    @Column(nullable = false)
     val precio_con_iva: Float = (precio_sin_iva * 1.21).toFloat(),
 
     @Column
@@ -36,4 +36,7 @@ data class Producto(
     val id: String = categoría.take(3) + nombre.take(3) + proveedor.nombre.take(3) //se forma con cat+nombre+proveedor las 3 primeras letras
 
 ) {
+    override fun toString(): String {
+        return "\nNombre: $nombre\nCategoría: $categoría\nDescripción: $descripcion\nPrecio sin IVA: $precio_sin_iva\nPrecio con IVA: $precio_con_iva\nStock: $stock\nProveedor: ${proveedor.nombre}\nFecha de alta: $fecha_alta\nID: $id"
+    }
 }
