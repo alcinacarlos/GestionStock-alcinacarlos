@@ -8,7 +8,7 @@ import java.util.Date
 data class Producto(
 
     @Column(nullable = false, length = 10)
-    val categoría:String,
+    val categoria:String,
 
     @Column(length = 50, nullable = false)
     val nombre:String,
@@ -33,10 +33,10 @@ data class Producto(
     val fecha_alta: Date = Date(),
 
     @Id
-    val id: String = categoría.take(3) + nombre.take(3) + proveedor.nombre.take(3) //se forma con cat+nombre+proveedor las 3 primeras letras
+    val id: String = categoria.take(3) + nombre.take(3) + proveedor.nombre.take(3) //se forma con cat+nombre+proveedor las 3 primeras letras
 
 ) {
     override fun toString(): String {
-        return "\nNombre: $nombre\nCategoría: $categoría\nDescripción: $descripcion\nPrecio sin IVA: $precio_sin_iva\nPrecio con IVA: $precio_con_iva\nStock: $stock\nProveedor: ${proveedor.nombre}\nFecha de alta: $fecha_alta\nID: $id"
+        return "\nNombre: $nombre\nCategoría: $categoria\nDescripción: $descripcion\nPrecio sin IVA: $precio_sin_iva\nPrecio con IVA: $precio_con_iva\nStock: $stock\nProveedor: ${proveedor.nombre}\nFecha de alta: $fecha_alta\nID: $id"
     }
 }

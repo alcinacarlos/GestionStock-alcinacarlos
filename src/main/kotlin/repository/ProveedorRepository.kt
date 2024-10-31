@@ -31,7 +31,8 @@ class ProveedorRepository {
     fun getAllProveedores(): List<Proveedor> {
         val em = getEntityManager()
         return try {
-            em.createQuery("FROM Proveedor", Proveedor::class.java).resultList
+            val query = em.createQuery("SELECT p FROM Proveedor p", Proveedor::class.java)
+            query.resultList
         } catch (e: Exception) {
             e.printStackTrace()
             emptyList()

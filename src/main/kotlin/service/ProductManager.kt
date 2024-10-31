@@ -24,7 +24,7 @@ class ProductManager(private val productoRepository: ProductoRepository) {
     fun modificarNombreProducto(idProducto: String, nuevoNombre: String): Boolean {
         val productoOld = productoRepository.getProductoById(idProducto) ?: return false
         val productoNuevo = Producto(
-            productoOld.categoría,
+            productoOld.categoria,
             nuevoNombre,
             productoOld.descripcion,
             productoOld.precio_sin_iva,
@@ -40,7 +40,7 @@ class ProductManager(private val productoRepository: ProductoRepository) {
     fun modificarStockProducto(idProducto: String, nuevoStock: Int): Boolean {
         val productoOld = productoRepository.getProductoById(idProducto) ?: return false
         val productoNuevo = Producto(
-            productoOld.categoría,
+            productoOld.categoria,
             productoOld.nombre,
             productoOld.descripcion,
             productoOld.precio_sin_iva,
